@@ -1,2 +1,0 @@
-# jstnurmind
-website
