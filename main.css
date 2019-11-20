@@ -1,212 +1,108 @@
 @import url("https://fonts.googleapis.com/css?family=Libre+Barcode+128+Text&display=swap");
 
+* {
+  box-sizing: border-box;
+}
+
 body {
-  background-color: #feec02;
   font-family: "Libre Barcode 128 Text", monospace;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+.container {
+  width: 60%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 5px solid #000;
+  z-index: 5;
 }
 
-.card {
-  background-color: unset;
-  border: none;
+div.bio {
+  width: 80%;
 }
-/*FONT STUFF*/
-#email,
-#available {
-  font-size: 3em !important;
+div.button-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
 }
-
-@media only screen and (max-width: 386px) {
-  #email {
-    text-align: left !important;
-    font-size: 2.8em !important;
-  }
-
-  #available {
-    font-size: 2.8em;
-  }
+div.bio p {
+  font-family: monospace, sans-serif;
+  text-align: center;
+  font-weight: 600;
 }
-.glitch {
-  position: relative;
-  margin-top: auto;
-  font-size: 6rem;
+a {
+  border: 5px solid black;
+  padding: 1rem;
+  font-size: 2rem;
+  font-family: monospace, sans-serif;
+  border-radius: 10px;
+  color: #000000;
+  width: 80%;
+  text-align: center;
+  margin: 1rem;
+  background-repeat: no-repeat;
+  background-size: 50px;
+  background-position: 15% center;
+}
+a.soundcloud {
+  background-image: url(./imgs/soundcloud.svg);
+  background-color: #FE5000;
+}
+a.youtube {
+  background-image: url(./imgs/youtube.svg);
+  background-color: #FF0000;
+}
+a.instagram {
+  background-image: url(./imgs/instagram.svg);
+  background-color: #833AB4;
+}
+h1 {
+  font-size: 5rem;
   font-weight: 400;
-  color: #feec02;
-  text-transform: uppercase;
-  transform: scale3d(1, 1, 1);
+  text-align: center;
 }
-.glitch::before,
-.glitch::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  color: #feec02;
-  background: #000;
-}
-.glitch::before {
-  left: 3px;
-  text-shadow: 3px 0 red;
-  animation: glitch-effect 10s infinite linear alternate-reverse;
-}
-.glitch::after {
-  left: -3px;
-  text-shadow: -3px 0 #ff2c5e;
-  animation: glitch-effect 5s infinite linear alternate-reverse;
+@media only screen and (min-width: 350px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+  }
 }
 
-@keyframes glitch-effect {
-  0% {
-    clip-path: inset(85% 0 97% 0);
-  }
-  2% {
-    clip-path: inset(83% 0 55% 0);
-  }
-  4% {
-    clip-path: inset(35% 0 22% 0);
-  }
-  6% {
-    clip-path: inset(35% 0 17% 0);
-  }
-  8% {
-    clip-path: inset(50% 0 66% 0);
-  }
-  10% {
-    clip-path: inset(42% 0 27% 0);
-  }
-  12% {
-    clip-path: inset(10% 0 73% 0);
-  }
-  14% {
-    clip-path: inset(87% 0 27% 0);
-  }
-  16% {
-    clip-path: inset(35% 0 65% 0);
-  }
-  18% {
-    clip-path: inset(66% 0 91% 0);
-  }
-  20% {
-    clip-path: inset(35% 0 68% 0);
-  }
-  22% {
-    clip-path: inset(52% 0 84% 0);
-  }
-  24% {
-    clip-path: inset(39% 0 71% 0);
-  }
-  26% {
-    clip-path: inset(18% 0 8% 0);
-  }
-  28% {
-    clip-path: inset(28% 0 54% 0);
-  }
-  30% {
-    clip-path: inset(100% 0 92% 0);
-  }
-  32% {
-    clip-path: inset(17% 0 28% 0);
-  }
-  34% {
-    clip-path: inset(48% 0 1% 0);
-  }
-  36% {
-    clip-path: inset(4% 0 10% 0);
-  }
-  38% {
-    clip-path: inset(64% 0 77% 0);
-  }
-  40% {
-    clip-path: inset(79% 0 56% 0);
-  }
-  42% {
-    clip-path: inset(16% 0 81% 0);
-  }
-  44% {
-    clip-path: inset(31% 0 30% 0);
-  }
-  46% {
-    clip-path: inset(55% 0 61% 0);
-  }
-  48% {
-    clip-path: inset(56% 0 48% 0);
-  }
-  50% {
-    clip-path: inset(94% 0 36% 0);
-  }
-  52% {
-    clip-path: inset(59% 0 80% 0);
-  }
-  54% {
-    clip-path: inset(15% 0 87% 0);
-  }
-  56% {
-    clip-path: inset(98% 0 68% 0);
-  }
-  58% {
-    clip-path: inset(46% 0 38% 0);
-  }
-  60% {
-    clip-path: inset(90% 0 62% 0);
-  }
-  62% {
-    clip-path: inset(64% 0 19% 0);
-  }
-  64% {
-    clip-path: inset(2% 0 42% 0);
-  }
-  66% {
-    clip-path: inset(54% 0 65% 0);
-  }
-  68% {
-    clip-path: inset(47% 0 78% 0);
-  }
-  70% {
-    clip-path: inset(91% 0 23% 0);
-  }
-  72% {
-    clip-path: inset(64% 0 97% 0);
-  }
-  74% {
-    clip-path: inset(19% 0 12% 0);
-  }
-  76% {
-    clip-path: inset(72% 0 29% 0);
-  }
-  78% {
-    clip-path: inset(10% 0 96% 0);
-  }
-  80% {
-    clip-path: inset(5% 0 70% 0);
-  }
-  82% {
-    clip-path: inset(93% 0 29% 0);
-  }
-  84% {
-    clip-path: inset(96% 0 86% 0);
-  }
-  86% {
-    clip-path: inset(71% 0 27% 0);
-  }
-  88% {
-    clip-path: inset(26% 0 29% 0);
-  }
-  90% {
-    clip-path: inset(6% 0 29% 0);
-  }
-  92% {
-    clip-path: inset(23% 0 1% 0);
-  }
-  94% {
-    clip-path: inset(4% 0 17% 0);
-  }
-  96% {
-    clip-path: inset(7% 0 88% 0);
-  }
-  98% {
-    clip-path: inset(40% 0 95% 0);
-  }
-  100% {
-    clip-path: inset(40% 0 41% 0);
-  }
+
+/* PARTICLE JS STYLING */
+
+ /* ---- particles.js container ---- */
+ #particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #d41d2a;
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  z-index: 1;
+} 
+.js-count-particles {
+  font-size: 1.1em;
+}
+
+.count-particles {
+  border-radius: 0 0 3px 3px;
+}
+
+canvas.particles-js-canvas-el {
+  display: block !important;
+}
+
+canvas {
+  display: none !important;
 }
