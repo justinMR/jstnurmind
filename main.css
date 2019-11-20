@@ -46,7 +46,7 @@ a {
   text-align: center;
   margin: 1rem;
   background-repeat: no-repeat;
-  background-size: 50px;
+  background-size: 2rem;
   background-position: 15% center;
 }
 a.soundcloud {
@@ -74,7 +74,34 @@ h1 {
     height: 100vh;
     width: 100vw;
   }
+
+  .container {
+    width: 100%;
+  }
+  a {
+    background-position: 5% center;
+  }
 }
+
+
+@media only screen and (min-width: 768px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .container {
+    width: 80%;
+  }
+
+  a {
+    background-position: 15% center;
+  }
+}
+
 
 
 /* PARTICLE JS STYLING */
@@ -82,8 +109,8 @@ h1 {
  /* ---- particles.js container ---- */
  #particles-js {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: #d41d2a;
   background-image: url("");
   background-repeat: no-repeat;
