@@ -51,15 +51,19 @@ a {
 }
 a.soundcloud {
   background-image: url(./imgs/soundcloud.svg);
-  background-color: #FE5000;
+  background-color: #fe5000;
 }
 a.youtube {
   background-image: url(./imgs/youtube.svg);
-  background-color: #FF0000;
+  background-color: #ff0000;
 }
 a.instagram {
   background-image: url(./imgs/instagram.svg);
-  background-color: #833AB4;
+  background-color: #833ab4;
+}
+a.spotify {
+  background-color: #1db954;
+  background-image: url(./imgs/spotify.svg);
 }
 h1 {
   font-size: 5rem;
@@ -83,7 +87,6 @@ h1 {
   }
 }
 
-
 @media only screen and (min-width: 768px) {
   body {
     display: flex;
@@ -102,12 +105,10 @@ h1 {
   }
 }
 
-
-
 /* PARTICLE JS STYLING */
 
- /* ---- particles.js container ---- */
- #particles-js {
+/* ---- particles.js container ---- */
+#particles-js {
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -117,7 +118,7 @@ h1 {
   background-size: cover;
   background-position: 50% 50%;
   z-index: 1;
-} 
+}
 .js-count-particles {
   font-size: 1.1em;
 }
