@@ -65,6 +65,14 @@ a.spotify {
   background-color: #1db954;
   background-image: url(./imgs/spotify.svg);
 }
+
+.profile-banner {
+  height: 200px;
+  width: 100%;
+  background-image: url(./imgs/jstnurmind-banner.jpg);
+  background-size: cover;
+  background-position: center;
+}
 h1 {
   font-size: 5rem;
   font-weight: 400;
@@ -97,7 +105,7 @@ h1 {
   }
 
   .container {
-    width: 80%;
+    width: 60%;
   }
 
   a {
