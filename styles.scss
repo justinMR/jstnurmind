@@ -190,13 +190,29 @@ body {
 }
 
 .appearance-grid-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    /* This ensures the box has height on iPhone */
+    aspect-ratio: 16 / 9; 
+    background-color: #000; // Visual placeholder while loading
+    border-radius: 8px;    // Matches your record-item vibe
+    overflow: hidden;
 
     iframe {
-
-        flex: 1;
-        min-height: 315px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      /* Remove your flex: 1 and min-height from here */
     }
-
+  }
 }
 
 h3 {
