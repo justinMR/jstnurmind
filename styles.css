@@ -1,0 +1,253 @@
+:root {
+  color-scheme: light dark;
+  --youtube: #ff0000;
+  --instagram: #405DE6;
+  --instagram-gradient: linear-gradient(45deg,
+          #405DE6,
+          #5B51D8,
+          #833AB4,
+          #C13584,
+          #E1306C,
+          #FD1D1D,
+          #F56040,
+          #F77737,
+          #FCAF45,
+          #FFDC80);
+  --tiktok-black: #000000;
+  --x-twitter-black: #000000;
+  --apple-music: #ff4e6b;
+  --bandcamp: #629aa9;
+  --linktree: #42e661;
+  --spotify: #1db954;
+  --soundcloud: #ff5500;
+  /* Light Mode Defaults */
+  --bg-color: #df0000;
+  --text-color: #000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark Mode Overrides */
+    --bg-color: #8e0b0b;
+    --text-color: #ffffff;
+  }
+}
+/* Instrument Sans Variable Font */
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("assets/fonts/Instrument_Sans/InstrumentSans-VariableFont_wdth,wght.ttf") format("truetype-variations");
+  font-weight: 400 700;
+  font-stretch: 75% 100%;
+  font-style: normal;
+  font-display: swap;
+}
+/* If you also have the Italic variable file: */
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("assets/fonts/Instrument_Sans/InstrumentSans-Italic-VariableFont_wdth,wght.ttf") format("truetype-variations");
+  font-weight: 400 700;
+  font-stretch: 75% 100%;
+  font-style: italic;
+  font-display: swap;
+}
+html {
+  font-size: 13px;
+  font-family: "Instrument Sans", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  -webkit-transition: background-color 0.8s ease-in-out, color 0.8s ease-in-out;
+  transition: background-color 0.8s ease-in-out, color 0.8s ease-in-out;
+  -ms-scroll-snap-type: y mandatory;
+      scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-y: none;
+}
+
+body {
+  margin: 0;
+}
+
+.section-hero {
+  height: 100svh;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  text-align: center;
+  background-image: var(--bg-hero-image);
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}
+
+.page-title {
+  font-size: clamp(16px, 7vw + 1rem, 200px);
+  margin-bottom: 0;
+  color: var(--bg-color);
+}
+
+.page-subtitle {
+  margin-top: 0;
+}
+
+.button-link-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.button-link {
+  text-decoration: none;
+  color: #fff;
+  background-color: blue;
+  padding: 0.5rem;
+  outline: 0;
+  border-radius: 20px;
+  font-size: 1.1rem;
+}
+
+.discography-grid,
+.appearances-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.discography-grid {
+  grid-template-columns: repeat(4, minmax(0px, 1fr));
+}
+
+.appearances-grid {
+  grid-template-columns: repeat(auto-fit, minmax(516px, 1fr));
+}
+
+#discography,
+#appearances {
+  container-type: inline-size;
+}
+
+@container (max-width: 600px) {
+  .discography-grid {
+    grid-template-columns: repeat(2, minmax(0px, 1fr));
+  }
+  .appearances-grid {
+    grid-template-columns: repeat(1, minmax(0px, 1fr));
+  }
+}
+.record-item,
+.appearance-grid-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+}
+
+.record-item {
+  -webkit-transition: border-radius 0.3s ease, padding 0.3s ease, -webkit-box-shadow 0.3s ease, -webkit-transform 0.3s ease;
+  transition: border-radius 0.3s ease, padding 0.3s ease, -webkit-box-shadow 0.3s ease, -webkit-transform 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-radius 0.3s ease, padding 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-radius 0.3s ease, padding 0.3s ease, -webkit-box-shadow 0.3s ease, -webkit-transform 0.3s ease;
+  color: var(--text-color);
+}
+.record-item:hover {
+  padding: 0.5rem;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  border-radius: 8px;
+  -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.appearance-grid-item iframe {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  min-height: 315px;
+}
+
+h3 {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+.release-date {
+  text-decoration: none;
+}
+
+section:not(.section-hero) {
+  padding: 3rem;
+}
+
+.section-title {
+  font-size: clamp(2.2rem, 5vw, 50px);
+}
+.section-title.center {
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+.about-me {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (max-width: 600px) {
+  .about-me {
+    grid-template-columns: 1fr;
+  }
+}
+
+.about-me-section.text {
+  padding-right: 2rem;
+}
+.about-me-section.text p {
+  font-size: clamp(1rem, 3.5vw, 2.5rem);
+}
+.about-me-section h2 {
+  margin-top: 0;
+}
+
+.about-me-photo {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center top;
+     object-position: center top;
+}
+@media (min-width: 1101px) {
+  .about-me-photo {
+    aspect-ratio: 1;
+  }
+}
+
+p {
+  font-size: clamp(1rem, 3.5vw, 2.5rem);
+}
+
+section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.reveal-section {
+  opacity: 0;
+  -webkit-transition: opacity 0.8s ease-out, -webkit-transform 0.8s ease-out;
+  transition: opacity 0.8s ease-out, -webkit-transform 0.8s ease-out;
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out, -webkit-transform 0.8s ease-out;
+}
+.reveal-section.is-visible {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
