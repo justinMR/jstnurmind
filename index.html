@@ -11,12 +11,22 @@
   <meta property="og:title" content="JSTNURMIND - Multi-genre Music Producer" />
   <meta property="og:description"
     content="Official website of JSTNURMIND. Multi-genre music producer from NYC, currently based in Austin, TX." />
-  <meta property="og:image" content="https://jstnurmind.com/assets/images/jstnurmind-elevator-landing-page-cover-9-16.webp" />
+<!-- share image -->
+  <meta property="og:image" content="https://jstnurmind.com/assets/images/jstnurmind-share-image-16-9.webp" />
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <!-- 1:1 aspect ratio  -->
+  <meta property="og:image" content="https://jstnurmind.com/assets/images/jstnurmind-share-image-1-1.webp" />
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="1200">
+
   <meta property="og:url" content="https://jstnurmind.com" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://jstnurmind.com/assets/images/jstnurmind-share-image-16-9.webp" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="image_src" href="https://jstnurmind.com/assets/images/jstnurmind-share-image-1-1.webp" />
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="canonical" href="https://jstnurmind.com" />
   <link rel="stylesheet" href="styles.css" />
@@ -24,7 +34,7 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "MusicGroup",
+    "@type": ["Person", "MusicGroup"],
     "name": "JSTNURMIND",
     "alternateName": ["Just In Your Mind", "JustInYourMind", "JST NUR MIND", "Just in ur mind"],
     "description": "Multi-genre music producer artist ranging between alternative hip-hop, house, and techno.",
@@ -34,6 +44,7 @@
       "addressLocality": "Austin",
       "addressRegion": "TX"
     },
+    "url": "https://jstnurmind.com",
     "sameAs": [
       "https://www.youtube.com/@jstnurmind",
       "https://www.instagram.com/jstnurmind/",
@@ -51,36 +62,44 @@
 </head>
 
 <body>
-  <section class="section-hero" style="--bg-hero-image: url('assets/images/jstnurmind-elevator-landing-page-cover-9-16.webp')">
+  <section class="section-hero"
+    style="--bg-hero-image: url('assets/images/jstnurmind-elevator-landing-page-cover-9-16.webp')">
     <h1 class="page-title">JSTNURMIND</h1>
     <h2 class="page-subtitle">Multi-genre music producer artist</h2>
     <div class="button-link-row">
-      <a class="button-link youtube" href="https://www.youtube.com/@jstnurmind" target="_blank" aria-label="Subscribe to JSTNURMIND on Youtube">
+      <a class="button-link youtube" href="https://www.youtube.com/@jstnurmind" target="_blank"
+        aria-label="Subscribe to JSTNURMIND on Youtube">
         <i class="fa-brands fa-youtube"></i> Youtube
       </a>
-      <a class="button-link spotify"
-        href="https://open.spotify.com/artist/3yjVlX4NAHcFIpwEMrHNNc" target="_blank" aria-label="Listen to JSTNURMIND on Spotify">
+      <a class="button-link spotify" href="https://open.spotify.com/artist/3yjVlX4NAHcFIpwEMrHNNc" target="_blank"
+        aria-label="Listen to JSTNURMIND on Spotify">
         <i class="fa-brands fa-spotify"></i> Spotify
       </a>
-      <a class="button-link soundcloud" href="https://www.soundcloud.com/jstnurmind" target="_blank" aria-label="Listen to JSTNURMIND on Soundcloud">
+      <a class="button-link soundcloud" href="https://www.soundcloud.com/jstnurmind" target="_blank"
+        aria-label="Listen to JSTNURMIND on Soundcloud">
         <i class="fa-brands fa-soundcloud"></i> Soundcloud
       </a>
-      <a class="button-link apple-music" href="https://music.apple.com/gb/artist/jstnurmind/1468414742" target="_blank" aria-label="Listen to JSTNURMIND on Apple Music">
+      <a class="button-link apple-music" href="https://music.apple.com/gb/artist/jstnurmind/1468414742" target="_blank"
+        aria-label="Listen to JSTNURMIND on Apple Music">
         <i class="fa-brands fa-apple"></i> Apple Music
       </a>
-      <a class="button-link bandcamp" href="https://jstnurmind.bandcamp.com/" target="_blank" aria-label="Support JSTNURMIND on Bandcamp">
+      <a class="button-link bandcamp" href="https://jstnurmind.bandcamp.com/" target="_blank"
+        aria-label="Support JSTNURMIND on Bandcamp">
         <i class="fa-brands fa-bandcamp"></i> Bandcamp
       </a>
     </div>
 
     <div class="button-link-row">
-      <a class="button-link instagram" href="https://www.instagram.com/jstnurmind/" target="_blank" aria-label="Follow JSTNURMIND on Instagram">
+      <a class="button-link instagram" href="https://www.instagram.com/jstnurmind/" target="_blank"
+        aria-label="Follow JSTNURMIND on Instagram">
         <i class="fa-brands fa-instagram"></i> Instagram
       </a>
-      <a class="button-link x-twitter" href="https://x.com/jstnurmind" target="_blank" aria-label="Follow JSTNURMIND on X">
+      <a class="button-link x-twitter" href="https://x.com/jstnurmind" target="_blank"
+        aria-label="Follow JSTNURMIND on X">
         <i class="fa-brands fa-square-x-twitter"></i> X/Twitter
       </a>
-      <a class="button-link tiktok" href="https://www.tiktok.com/@jstnurmind" target="_blank" aria-label="Follow JSTNURMIND on TikTok">
+      <a class="button-link tiktok" href="https://www.tiktok.com/@jstnurmind" target="_blank"
+        aria-label="Follow JSTNURMIND on TikTok">
         <i class="fa-brands fa-tiktok"></i> Tiktok
       </a>
     </div>
@@ -94,11 +113,13 @@
   <section class="about-me">
     <div class="about-me-section text">
       <h2 class="section-title">About JSTNURMIND</h2>
-      <p>JSTNURMIND (pronounced 'Just In Your Mind') is a red masked multi-genre music producer artist; styles range between alternative hip-hop, rap,
+      <p>JSTNURMIND (pronounced 'Just In Your Mind') is a red masked multi-genre music producer artist; styles range
+        between alternative hip-hop, rap,
         house, and techno. Lyrics and music dance between feelings of reflection, pensiveness, playful spirits, upbeat
         swings, emotive melodies, and rhythmic hypnotic moods. <br><br>Originally from New&nbsp;York&nbsp;City.
         <br>Currently based in
-        Austin,&nbsp;Texas.</p>
+        Austin,&nbsp;Texas.
+      </p>
     </div>
     <div class="about-me-section image">
       <img class="about-me-photo" src="assets/images/jstnurmind-mask-holding-piano.webp"
@@ -108,59 +129,69 @@
   <section id="discography">
     <h2 class="section-title center">Discography</h2>
     <div class="discography-grid">
-      <a class="record-item" href="https://tr.ee/1NFYoPm42d" target="_blank" aria-label="Stream and Preview Raverr Pack Sounds by JSTNURMIND">
+      <a class="record-item" href="https://tr.ee/1NFYoPm42d" target="_blank"
+        aria-label="Stream and Preview Raverr Pack Sounds by JSTNURMIND">
         <img src="assets/images/raverr-pack-sounds-jstnurmind-album-cover.webp"
           alt="Raverr Pack Sounds - Album Artwork by JSTNURMIND" loading="lazy">
         <h3>Raverr Pack Sounds <i class="fa-solid fa-link"></i></h3>
         <span class="release-date">Dec 12, 2025</span>
       </a>
-      <a class="record-item" href="https://tr.ee/hpc5ONDSvH" target="_blank" aria-label="Stream and Preview Raverr Pack 2 by JSTNURMIND">
-        <img src="assets/images/raverr-pack-2-jstnurmind-album-cover.webp" alt="Raverr Pack 2 - Album Artwork by JSTNURMIND"
-          loading="lazy">
+      <a class="record-item" href="https://tr.ee/hpc5ONDSvH" target="_blank"
+        aria-label="Stream and Preview Raverr Pack 2 by JSTNURMIND">
+        <img src="assets/images/raverr-pack-2-jstnurmind-album-cover.webp"
+          alt="Raverr Pack 2 - Album Artwork by JSTNURMIND" loading="lazy">
         <h3>Raverr Pack 2 <i class="fa-solid fa-link"></i></h3>
         <span class="release-date">Nov 7, 2025</span>
       </a>
-      <a class="record-item" href="https://tr.ee/8MOr1FxKYm" target="_blank" aria-label="Stream and Preview Raverr Pack 1 by JSTNURMIND">
-        <img src="assets/images/raverr-pack-1-jstnurmind-album-cover.webp" alt="Raverr Pack 1 - Album Artwork by JSTNURMIND"
-          loading="lazy">
+      <a class="record-item" href="https://tr.ee/8MOr1FxKYm" target="_blank"
+        aria-label="Stream and Preview Raverr Pack 1 by JSTNURMIND">
+        <img src="assets/images/raverr-pack-1-jstnurmind-album-cover.webp"
+          alt="Raverr Pack 1 - Album Artwork by JSTNURMIND" loading="lazy">
         <h3>Raverr Pack 1 <i class="fa-solid fa-link"></i></h3>
         <span class="release-date">May 2, 2025</span>
       </a>
-      <a class="record-item" href="https://tr.ee/FahSYwUITs" target="_blank" aria-label="Stream and Preview Raverr by JSTNURMIND">
-        <img src="assets/images/raverr-jstnurmind-album-cover.webp" alt="Raverr - Album Artwork by JSTNURMIND" loading="lazy">
+      <a class="record-item" href="https://tr.ee/FahSYwUITs" target="_blank"
+        aria-label="Stream and Preview Raverr by JSTNURMIND">
+        <img src="assets/images/raverr-jstnurmind-album-cover.webp" alt="Raverr - Album Artwork by JSTNURMIND"
+          loading="lazy">
         <h3>Raverr <i class="fa-solid fa-link"></i></h3>
         <span class="release-date">Jan 29, 2025</span>
       </a>
 
-      <a class="record-item" href="https://tr.ee/BuGPJ0v1gw" target="_blank" aria-label="Stream and Preview Too Good (Like Way) by JSTNURMIND">
-        <img src="assets/images/too-good-jstnurmind-album-cover.webp" alt="Too Good (Like Way) - Album Artwork by JSTNURMIND"
-          loading="lazy">
+      <a class="record-item" href="https://tr.ee/BuGPJ0v1gw" target="_blank"
+        aria-label="Stream and Preview Too Good (Like Way) by JSTNURMIND">
+        <img src="assets/images/too-good-jstnurmind-album-cover.webp"
+          alt="Too Good (Like Way) - Album Artwork by JSTNURMIND" loading="lazy">
         <h3>Too Good (Like Way) <i class="fa-solid fa-link"></i></h3>
         <span class="release-date">Dec 3, 2024</span>
       </a>
 
-      <a class="record-item" href="https://tr.ee/oPhlmyT_8b" target="_blank" aria-label="Stream and Preview We Are So Back by JSTNURMIND">
-        <img src="assets/images/we-are-so-back-jstnurmind-album-cover.webp" alt="We Are So Back - Album Artwork by JSTNURMIND"
-          loading="lazy">
+      <a class="record-item" href="https://tr.ee/oPhlmyT_8b" target="_blank"
+        aria-label="Stream and Preview We Are So Back by JSTNURMIND">
+        <img src="assets/images/we-are-so-back-jstnurmind-album-cover.webp"
+          alt="We Are So Back - Album Artwork by JSTNURMIND" loading="lazy">
         <h3>We Are So Back <i class="fa-solid fa-link"></i></h3>
         <span class="release-date">Nov 5, 2024</span>
       </a>
 
-      <a class="record-item" href="https://tr.ee/WxJ73FwKsi" target="_blank" aria-label="Stream and Preview We Are So Fucking Back by JSTNURMIND">
+      <a class="record-item" href="https://tr.ee/WxJ73FwKsi" target="_blank"
+        aria-label="Stream and Preview We Are So Fucking Back by JSTNURMIND">
         <img src="assets/images/we-are-so-fucking-back-jstnurmind-album-cover.webp"
           alt="We Are So Fucking Back - Album Artwork by JSTNURMIND" loading="lazy">
         <h3>We Are So Fucking Back <i class="fa-solid fa-link"></i></h3>
         <span class="release-date">Oct 16, 2024</span>
       </a>
 
-      <a class="record-item" href="https://tr.ee/kV30mfH6G1" target="_blank" aria-label="Stream and Preview Is It Lust or More Than That by JSTNURMIND">
+      <a class="record-item" href="https://tr.ee/kV30mfH6G1" target="_blank"
+        aria-label="Stream and Preview Is It Lust or More Than That by JSTNURMIND">
         <img src="assets/images/is-it-lust-or-more-than-that-jstnurmind-album-cover.webp"
           alt="Is It Lust or More Than That - Album Artwork by JSTNURMIND" loading="lazy">
         <h3>Is It Lust or More Than That? <i class="fa-solid fa-link"></i></h3>
         <span class="release-date">Jun 15, 2023</span>
       </a>
 
-      <a class="record-item" href="https://tr.ee/rDjsMYAM3q" target="_blank" aria-label="Stream and Preview Find Me (You Already) by JSTNURMIND">
+      <a class="record-item" href="https://tr.ee/rDjsMYAM3q" target="_blank"
+        aria-label="Stream and Preview Find Me (You Already) by JSTNURMIND">
         <img src="assets/images/find-me-jstnurmind-album-cover.webp"
           alt="Find Me (You Already) That - Album Artwork by JSTNURMIND" loading="lazy">
         <h3>Find Me (You Already) <i class="fa-solid fa-link"></i></h3>
@@ -168,28 +199,33 @@
       </a>
 
 
-      <a class="record-item" href="https://tr.ee/fkQwVah6Wx" target="_blank" aria-label="Stream and Preview Suddenly by JSTNURMIND">
+      <a class="record-item" href="https://tr.ee/fkQwVah6Wx" target="_blank"
+        aria-label="Stream and Preview Suddenly by JSTNURMIND">
         <img src="assets/images/suddenly-jstnurmind-album-cover.webp" alt="Suddenly That - Album Artwork by JSTNURMIND"
           loading="lazy">
         <h3>Suddenly <i class="fa-solid fa-link"></i></h3>
         <span class="release-date">Jul 8, 2022</span>
       </a>
 
-      <a class="record-item" href="https://tr.ee/1n7zI5pjIY" target="_blank" aria-label="Stream and Preview U Move by JSTNURMIND">
-        <img src="assets/images/u-move-jstnurmind-album-cover.webp" alt="U Move - Album Artwork by JSTNURMIND" loading="lazy">
+      <a class="record-item" href="https://tr.ee/1n7zI5pjIY" target="_blank"
+        aria-label="Stream and Preview U Move by JSTNURMIND">
+        <img src="assets/images/u-move-jstnurmind-album-cover.webp" alt="U Move - Album Artwork by JSTNURMIND"
+          loading="lazy">
         <h3>U Move <i class="fa-solid fa-link"></i></h3>
         <span class="release-date">Feb 22, 2022</span>
       </a>
 
 
-      <a class="record-item" href="https://tr.ee/fnLC4SS_x_" target="_blank" aria-label="Stream and Preview There Is A Rhythm by JSTNURMIND">
+      <a class="record-item" href="https://tr.ee/fnLC4SS_x_" target="_blank"
+        aria-label="Stream and Preview There Is A Rhythm by JSTNURMIND">
         <img src="assets/images/there-is-rhythm-jstnurmind-album-cover.webp"
           alt="There Is A Rhythm - Album Artwork by JSTNURMIND" loading="lazy">
         <h3>There Is A Rhythm <i class="fa-solid fa-link"></i></h3>
         <span class="release-date">Jun 19, 2021</span>
       </a>
 
-      <a class="record-item" href="https://tr.ee/laqTTtSnyI" target="_blank" aria-label="Stream and Preview You Make Me Wanna... by JSTNURMIND">
+      <a class="record-item" href="https://tr.ee/laqTTtSnyI" target="_blank"
+        aria-label="Stream and Preview You Make Me Wanna... by JSTNURMIND">
         <img src="assets/images/you-make-me-wanna-jstnurmind-album-cover.webp"
           alt="You Make Me Wanna... - Album Artwork by JSTNURMIND" loading="lazy">
         <h3>You Make Me Wanna... (cover) <i class="fa-solid fa-link"></i></h3>
@@ -197,14 +233,16 @@
       </a>
 
 
-      <a class="record-item" href="https://tr.ee/n-f8f-K1mE" target="_blank" aria-label="Stream and Preview Determined by Clouds by JSTNURMIND">
+      <a class="record-item" href="https://tr.ee/n-f8f-K1mE" target="_blank"
+        aria-label="Stream and Preview Determined by Clouds by JSTNURMIND">
         <img src="assets/images/determined-by-clouds-jstnurmind-album-cover.webp"
           alt="Determined by Clouds - Album Artwork by JSTNURMIND" loading="lazy">
         <h3>Determined by Clouds <i class="fa-solid fa-link"></i></h3>
         <span class="release-date">Apr 24, 2020</span>
       </a>
 
-      <a class="record-item" href="https://tr.ee/Gn8DmP5COD" target="_blank" aria-label="Stream and Preview Childish Dreams by JSTNURMIND">
+      <a class="record-item" href="https://tr.ee/Gn8DmP5COD" target="_blank"
+        aria-label="Stream and Preview Childish Dreams by JSTNURMIND">
         <img src="assets/images/childish-dreams-jstnurmind-album-cover.webp"
           alt="Childish Dreams - Album Artwork by JSTNURMIND" loading="lazy">
         <h3>Childish Dreams <i class="fa-solid fa-link"></i></h3>
@@ -218,8 +256,8 @@
       <div class="appearance-grid-item">
         <div class="video-wrapper">
           <iframe loading="lazy" width="100%" height="315"
-            src="https://www.youtube-nocookie.com/embed/pUA7d2FDPzY?si=dR3x0ESYDCoMp6aH&origin=https://jstnurmind.com" title="YouTube video player"
-            frameborder="0" 
+            src="https://www.youtube-nocookie.com/embed/pUA7d2FDPzY?si=dR3x0ESYDCoMp6aH&origin=https://jstnurmind.com"
+            title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
@@ -229,7 +267,11 @@
 
       <div class="appearance-grid-item">
         <div class="video-wrapper">
-          <iframe loading="lazy" width="100%" height="315" src="https://www.youtube-nocookie.com/embed/l_l-Fp1odV4?si=zm_85ItkuqaHdlYk&origin=https://jstnurmind.com" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <iframe loading="lazy" width="100%" height="315"
+            src="https://www.youtube-nocookie.com/embed/l_l-Fp1odV4?si=zm_85ItkuqaHdlYk&origin=https://jstnurmind.com"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
         <h3>Open Decks Night Live at Kingdom Austin, Texas</h3>
         <span class="appearance-date">Nov 5, 2025</span>
@@ -237,8 +279,8 @@
       <div class="appearance-grid-item">
         <div class="video-wrapper">
           <iframe loading="lazy" width="100%" height="315"
-            src="https://www.youtube-nocookie.com/embed/6PQVCzU1PQc?si=bi15G77d5LgILOW5&origin=https://jstnurmind.com" title="YouTube video player"
-            frameborder="0"
+            src="https://www.youtube-nocookie.com/embed/6PQVCzU1PQc?si=bi15G77d5LgILOW5&origin=https://jstnurmind.com"
+            title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
@@ -248,8 +290,8 @@
       <div class="appearance-grid-item">
         <div class="video-wrapper">
           <iframe loading="lazy" width="100%" height="315"
-            src="https://www.youtube-nocookie.com/embed/yeeeNCJyHhg?si=XETmNH-bK2iJ6-Yt&origin=https://jstnurmind.com" title="YouTube video player"
-            frameborder="0"
+            src="https://www.youtube-nocookie.com/embed/yeeeNCJyHhg?si=XETmNH-bK2iJ6-Yt&origin=https://jstnurmind.com"
+            title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
@@ -259,8 +301,8 @@
       <div class="appearance-grid-item">
         <div class="video-wrapper">
           <iframe loading="lazy" width="100%" height="315"
-            src="https://www.youtube-nocookie.com/embed/SVYHU5vylLk?si=bRDNbBfqCZcde8oG&origin=https://jstnurmind.com" title="YouTube video player"
-            frameborder="0"
+            src="https://www.youtube-nocookie.com/embed/SVYHU5vylLk?si=bRDNbBfqCZcde8oG&origin=https://jstnurmind.com"
+            title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
@@ -270,8 +312,8 @@
       <div class="appearance-grid-item">
         <div class="video-wrapper">
           <iframe loading="lazy" width="100%" height="315"
-            src="https://www.youtube-nocookie.com/embed/f4kIIQGoBVI?si=yUM4GM6SrzNDbgSa&origin=https://jstnurmind.com" title="YouTube video player"
-            frameborder="0"
+            src="https://www.youtube-nocookie.com/embed/f4kIIQGoBVI?si=yUM4GM6SrzNDbgSa&origin=https://jstnurmind.com"
+            title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
@@ -281,8 +323,8 @@
       <div class="appearance-grid-item">
         <div class="video-wrapper">
           <iframe loading="lazy" width="100%" height="315"
-            src="https://www.youtube-nocookie.com/embed/iN12R01ZKJA?si=x5LeCwZ69pIJMjdM&origin=https://jstnurmind.com" title="YouTube video player"
-            frameborder="0"
+            src="https://www.youtube-nocookie.com/embed/iN12R01ZKJA?si=x5LeCwZ69pIJMjdM&origin=https://jstnurmind.com"
+            title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
@@ -292,8 +334,8 @@
       <div class="appearance-grid-item">
         <div class="video-wrapper">
           <iframe loading="lazy" width="100%" height="315"
-            src="https://www.youtube-nocookie.com/embed/l5MXveufKqU?si=H-wjQ62ekNDbk3ll&origin=https://jstnurmind.com" title="YouTube video player"
-            frameborder="0"
+            src="https://www.youtube-nocookie.com/embed/l5MXveufKqU?si=H-wjQ62ekNDbk3ll&origin=https://jstnurmind.com"
+            title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
@@ -303,8 +345,8 @@
       <div class="appearance-grid-item">
         <div class="video-wrapper">
           <iframe loading="lazy" width="100%" height="315"
-            src="https://www.youtube-nocookie.com/embed/C8iDvQ6mb2k?si=89dmXUpL4JqRdRg-&origin=https://jstnurmind.com" title="YouTube video player"
-            frameborder="0"
+            src="https://www.youtube-nocookie.com/embed/C8iDvQ6mb2k?si=89dmXUpL4JqRdRg-&origin=https://jstnurmind.com"
+            title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
@@ -314,8 +356,8 @@
       <div class="appearance-grid-item">
         <div class="video-wrapper">
           <iframe loading="lazy" width="100%" height="315"
-            src="https://www.youtube-nocookie.com/embed/4yILegstyd0?si=zq3t_xvTZamEyRZG&origin=https://jstnurmind.com" title="YouTube video player"
-            frameborder="0"
+            src="https://www.youtube-nocookie.com/embed/4yILegstyd0?si=zq3t_xvTZamEyRZG&origin=https://jstnurmind.com"
+            title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
@@ -325,8 +367,8 @@
       <div class="appearance-grid-item">
         <div class="video-wrapper">
           <iframe loading="lazy" width="100%" height="315"
-            src="https://www.youtube-nocookie.com/embed/wgljaHoLokI?si=aEko4JrYunoH1Ray&origin=https://jstnurmind.com" title="YouTube video player"
-            frameborder="0"
+            src="https://www.youtube-nocookie.com/embed/wgljaHoLokI?si=aEko4JrYunoH1Ray&origin=https://jstnurmind.com"
+            title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
@@ -336,8 +378,8 @@
       <div class="appearance-grid-item">
         <div class="video-wrapper">
           <iframe loading="lazy" width="100%" height="315"
-            src="https://www.youtube-nocookie.com/embed/BfKixLN--nA?si=zpJV_1LXmwMuJGBD&origin=https://jstnurmind.com" title="YouTube video player"
-            frameborder="0"
+            src="https://www.youtube-nocookie.com/embed/BfKixLN--nA?si=zpJV_1LXmwMuJGBD&origin=https://jstnurmind.com"
+            title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
