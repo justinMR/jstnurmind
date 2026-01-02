@@ -1,5 +1,5 @@
 const observerOptions = {
-  threshold: 0.2 // Trigger when 20% of the section is visible
+  threshold: 0.05 // Trigger when 20% of the section is visible
 };
 
 const observer = new IntersectionObserver((entries) => {
