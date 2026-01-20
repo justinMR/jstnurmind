@@ -55,10 +55,8 @@ html {
   font-family: "Instrument Sans", sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
-  -webkit-transition: background-color 0.8s ease-in-out, color 0.8s ease-in-out;
   transition: background-color 0.8s ease-in-out, color 0.8s ease-in-out;
-  -ms-scroll-snap-type: y mandatory;
-      scroll-snap-type: y mandatory;
+  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   overscroll-behavior-y: none;
 }
@@ -73,8 +71,7 @@ body {
 
 .section-hero {
   height: 100svh;
-  -ms-flex-line-pack: center;
-      align-content: center;
+  align-content: center;
   text-align: center;
   background-image: var(--bg-hero-image);
   background-size: cover;
@@ -93,14 +90,9 @@ body {
 }
 
 .button-link-row {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
   margin-bottom: 1rem;
 }
@@ -134,6 +126,10 @@ body {
   container-type: inline-size;
 }
 
+.appearances-description {
+  text-align: center;
+}
+
 @container (max-width: 600px) {
   .discography-grid {
     grid-template-columns: repeat(2, minmax(0px, 1fr));
@@ -144,40 +140,25 @@ body {
 }
 .record-item,
 .appearance-grid-item {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   gap: 10px;
 }
 
 .record-item {
-  -webkit-transition: border-radius 0.3s ease, padding 0.3s ease, -webkit-box-shadow 0.3s ease, -webkit-transform 0.3s ease;
-  transition: border-radius 0.3s ease, padding 0.3s ease, -webkit-box-shadow 0.3s ease, -webkit-transform 0.3s ease;
   transition: box-shadow 0.3s ease, transform 0.3s ease, border-radius 0.3s ease, padding 0.3s ease;
-  transition: box-shadow 0.3s ease, transform 0.3s ease, border-radius 0.3s ease, padding 0.3s ease, -webkit-box-shadow 0.3s ease, -webkit-transform 0.3s ease;
   color: var(--text-color);
 }
 .record-item:hover {
   padding: 0.5rem;
-  -webkit-transform: scale(1.05);
-          transform: scale(1.05);
+  transform: scale(1.05);
   border-radius: 8px;
-  -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 
 .appearance-grid-item {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   gap: 10px;
 }
 .appearance-grid-item .video-wrapper {
@@ -267,13 +248,9 @@ section {
 
 .reveal-section {
   opacity: 0;
-  -webkit-transition: opacity 0.8s ease-out, -webkit-transform 0.8s ease-out;
-  transition: opacity 0.8s ease-out, -webkit-transform 0.8s ease-out;
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out, -webkit-transform 0.8s ease-out;
 }
 .reveal-section.is-visible {
   opacity: 1;
-  -webkit-transform: translateY(0);
-          transform: translateY(0);
-}
+  transform: translateY(0);
+}/*# sourceMappingURL=styles.css.map */
