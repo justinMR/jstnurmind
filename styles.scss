@@ -77,14 +77,26 @@ body {
     padding-left: env(safe-area-inset-left);
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 .section-hero {
     height: 100svh;
     align-content: center;
     text-align: center;
     background-image: var(--bg-hero-image);
     background-size: cover;
-    background-position: bottom;
+    background-position: 55% top;
     background-repeat: no-repeat;
+
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+
+    .page-title {
+        color: #df0000;
+    }
 }
 
 .page-title {
@@ -211,7 +223,8 @@ body {
     border-radius: 8px;    // Matches your record-item vibe
     overflow: hidden;
 
-    iframe {
+    iframe,
+    img {
       position: absolute;
       top: 0;
       left: 0;
@@ -220,7 +233,18 @@ body {
       border: 0;
       /* Remove your flex: 1 and min-height from here */
     }
+
+    img {
+      object-fit: cover;
+      object-position: 100% 5%
+    }
   }
+}
+
+.appearance-link {
+    color: var(--text-color);
+    text-decoration: underline;
+    width: fit-content;
 }
 
 h3 {
@@ -276,7 +300,7 @@ a {
 .about-me-photo {
     width: 100%;
     object-fit: cover;
-    object-position: center top;
+    object-position: center;
 
     @media(min-width: 1101px) {
         aspect-ratio: 1;

@@ -69,14 +69,24 @@ body {
   padding-left: env(safe-area-inset-left);
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 .section-hero {
   height: 100svh;
   align-content: center;
   text-align: center;
   background-image: var(--bg-hero-image);
   background-size: cover;
-  background-position: bottom;
+  background-position: 55% top;
   background-repeat: no-repeat;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+.section-hero .page-title {
+  color: #df0000;
 }
 
 .page-title {
@@ -170,7 +180,8 @@ body {
   border-radius: 8px;
   overflow: hidden;
 }
-.appearance-grid-item .video-wrapper iframe {
+.appearance-grid-item .video-wrapper iframe,
+.appearance-grid-item .video-wrapper img {
   position: absolute;
   top: 0;
   left: 0;
@@ -178,6 +189,16 @@ body {
   height: 100%;
   border: 0;
   /* Remove your flex: 1 and min-height from here */
+}
+.appearance-grid-item .video-wrapper img {
+  object-fit: cover;
+  object-position: 100% 5%;
+}
+
+.appearance-link {
+  color: var(--text-color);
+  text-decoration: underline;
+  width: fit-content;
 }
 
 h3 {
@@ -226,10 +247,8 @@ a {
 
 .about-me-photo {
   width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  -o-object-position: center top;
-     object-position: center top;
+  object-fit: cover;
+  object-position: center;
 }
 @media (min-width: 1101px) {
   .about-me-photo {
@@ -253,4 +272,6 @@ section {
 .reveal-section.is-visible {
   opacity: 1;
   transform: translateY(0);
-}/*# sourceMappingURL=styles.css.map */
+}
+
+/*# sourceMappingURL=styles.css.map */
