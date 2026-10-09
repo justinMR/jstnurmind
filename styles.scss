@@ -54,6 +54,23 @@
     font-display: swap;
 }
 
+/* Instrument Serif */
+@font-face {
+    font-family: 'Instrument Serif';
+    src: url('assets/fonts/Instrument_Serif/InstrumentSerif-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Instrument Serif';
+    src: url('assets/fonts/Instrument_Serif/InstrumentSerif-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
 html {
     font-size: 13px;
     font-family: "Instrument Sans", sans-serif;
@@ -100,6 +117,8 @@ img {
 }
 
 .page-title {
+    font-family: "Instrument Serif", serif;
+    font-weight: 400;
     font-size: clamp(16px, 7vw + 1rem, 200px);
     margin-bottom: 0;
     color: var(--bg-color);
@@ -107,6 +126,9 @@ img {
 
 .page-subtitle {
     margin-top: 0;
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-weight: 400;
 }
 
 
@@ -126,6 +148,7 @@ img {
     outline: 0;
     border-radius: 20px;
     font-size: 1.1rem;
+    font-weight: 500;
 
     // &.youtube {
     //     background-color: var(--youtube);
@@ -261,6 +284,8 @@ section:not(.section-hero) {
 }
 
 .section-title {
+    font-family: "Instrument Serif", serif;
+    font-weight: 400;
     font-size: clamp(2.2rem, 5vw, 50px);
 
     &.center {

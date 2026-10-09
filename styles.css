@@ -50,6 +50,21 @@
   font-style: italic;
   font-display: swap;
 }
+/* Instrument Serif */
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("assets/fonts/Instrument_Serif/InstrumentSerif-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("assets/fonts/Instrument_Serif/InstrumentSerif-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
 html {
   font-size: 13px;
   font-family: "Instrument Sans", sans-serif;
@@ -90,6 +105,8 @@ img {
 }
 
 .page-title {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
   font-size: clamp(16px, 7vw + 1rem, 200px);
   margin-bottom: 0;
   color: var(--bg-color);
@@ -97,6 +114,9 @@ img {
 
 .page-subtitle {
   margin-top: 0;
+  font-family: "Instrument Serif", serif;
+  font-style: italic;
+  font-weight: 400;
 }
 
 .button-link-row {
@@ -115,6 +135,7 @@ img {
   outline: 0;
   border-radius: 20px;
   font-size: 1.1rem;
+  font-weight: 500;
 }
 
 .discography-grid,
@@ -191,13 +212,16 @@ img {
   /* Remove your flex: 1 and min-height from here */
 }
 .appearance-grid-item .video-wrapper img {
-  object-fit: cover;
-  object-position: 100% 5%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: 100% 5%;
+     object-position: 100% 5%;
 }
 
 .appearance-link {
   color: var(--text-color);
   text-decoration: underline;
+  width: -moz-fit-content;
   width: fit-content;
 }
 
@@ -215,6 +239,8 @@ section:not(.section-hero) {
 }
 
 .section-title {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
   font-size: clamp(2.2rem, 5vw, 50px);
 }
 .section-title.center {
@@ -247,8 +273,10 @@ a {
 
 .about-me-photo {
   width: 100%;
-  object-fit: cover;
-  object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
 }
 @media (min-width: 1101px) {
   .about-me-photo {
@@ -272,6 +300,4 @@ section {
 .reveal-section.is-visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-/*# sourceMappingURL=styles.css.map */
+}/*# sourceMappingURL=styles.css.map */
