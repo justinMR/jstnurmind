@@ -1,0 +1,16 @@
+{
+  "name": "jstnurmind",
+  "private": true,
+  "type": "module",
+  "description": "Official website of JSTNURMIND",
+  "scripts": {
+    "build": "npm run build:html && npm run build:css",
+    "build:html": "node scripts/build.mjs",
+    "build:css": "sass --no-source-map styles.scss styles.css",
+    "watch:css": "sass --no-source-map --watch styles.scss styles.css",
+    "serve": "python3 -m http.server 8080"
+  },
+  "devDependencies": {
+    "sass": "^1.80.0"
+  }
+}
