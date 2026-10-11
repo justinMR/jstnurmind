@@ -25,6 +25,8 @@
   --section-space: clamp(3rem, 6vw, 5.5rem);
   --container: 76rem;
   --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --pad-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  --pad-right: max(var(--gutter), env(safe-area-inset-right, 0px));
   --header-height: 4rem;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
@@ -185,7 +187,8 @@ a {
   width: 100%;
   max-width: calc(var(--container) + var(--gutter) * 2);
   margin-inline: auto;
-  padding-inline: var(--gutter);
+  padding-left: var(--pad-left);
+  padding-right: var(--pad-right);
 }
 
 .eyebrow {
@@ -268,10 +271,6 @@ a {
   color: var(--s-accent);
   font-weight: 600;
   text-decoration-color: currentColor;
-}
-
-.ext-icon {
-  font-size: 0.85em;
 }
 
 .link-list {
@@ -535,7 +534,9 @@ a {
     left: 0;
     right: 0;
     flex-direction: column;
-    padding: var(--space-2) var(--gutter) var(--space-5);
+    padding-block: var(--space-2) var(--space-5);
+    padding-left: var(--pad-left);
+    padding-right: var(--pad-right);
     background: var(--red);
     border-bottom: 1px solid var(--s-line);
   }

@@ -43,10 +43,8 @@ const formatDate = (iso) => {
 
 const time = (iso) => html`<time datetime="${iso}">${formatDate(iso)}</time>`;
 
-const arrow = '<span class="ext-icon" aria-hidden="true">↗</span>';
-
 const ext = (url, label, className = 'text-link', context = '') =>
-  html`<a class="${className}" href="${esc(url)}" target="_blank" rel="noopener">${esc(label)}${context ? html`<span class="visually-hidden">: ${esc(context)}</span>` : ''}${arrow}<span class="visually-hidden"> (opens in a new tab)</span></a>`;
+  html`<a class="${className}" href="${esc(url)}" target="_blank" rel="noopener">${esc(label)}${context ? html`<span class="visually-hidden">: ${esc(context)}</span>` : ''}<span class="visually-hidden"> (opens in a new tab)</span></a>`;
 
 const youtubeWatchUrl = (id) => `https://www.youtube.com/watch?v=${id}`;
 const youtubeThumb = (id) => `https://i.ytimg.com/vi/${id}/sddefault.jpg`;
