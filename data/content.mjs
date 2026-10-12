@@ -16,17 +16,23 @@ export const site = {
     'His work balances introspective moods, playful energy, and rhythm-driven experimentation.',
   ],
   genres: ['Electronic', 'Alternative Hip-Hop', 'House', 'Techno', 'Hip-Hop', 'Rap'],
-  heroImage: {
-    src: '/assets/images/jstnurmind-red-mask-music-producer-austin.webp',
-    width: 1168,
-    height: 880,
-    alt: 'JSTNURMIND in his red faceted mask and a black t-shirt, looking to the side against a pale blue backdrop.',
-  },
+  // Scrolling banner under the homepage hero.
+  bannerGenres: ['Electronic', 'Alternative Hip-Hop', 'House', 'Techno'],
+  // Pull quote in the About section; condensed from the second bio paragraph.
+  pullQuote: 'Introspective moods, playful energy, rhythm-driven experimentation.',
+  // Homepage hero.
   portrait: {
     src: '/assets/images/jstnurmind-red-mask-portrait.jpeg',
     width: 576,
     height: 1024,
     alt: 'Close-up portrait of JSTNURMIND wearing the red faceted mask, lit by a soft spotlight.',
+  },
+  // About section. Transparent background, shown on an ink panel.
+  maskImage: {
+    src: '/assets/images/jstnurmind-red-mask-cutout.webp',
+    width: 1200,
+    height: 899,
+    alt: 'The red faceted JSTNURMIND mask.',
   },
   shareImage: {
     square: '/assets/images/jstnurmind-share-image-1-1.jpeg?v=2',
@@ -205,11 +211,13 @@ export const releases = [
 export const featuredReleaseIds = ['raverr-pack-2', 'too-good-like-way', 'we-are-so-fucking-back'];
 
 // Homepage "Featured On": third-party channels that have published JSTNURMIND tracks.
+// `logo.mono`: a single-colour logo that gets recoloured to match the theme; otherwise it's shown as supplied.
 export const features = [
   {
     id: 'eelf-step-to-me',
     channel: 'EELF',
     channelUrl: 'https://www.youtube.com/@EELFtrax',
+    logo: { src: '/assets/images/eelf-records-logo.webp', width: 800, height: 329, mono: true },
     title: 'Step To Me (Vocal Version)',
     youtubeId: 'W5I7fYW3ACA',
     // Track appears on this release (verified against the Spotify tracklist).
@@ -219,6 +227,7 @@ export const features = [
     id: 'houz-suddenly',
     channel: 'HOUZ',
     channelUrl: 'https://www.youtube.com/@HOUZMUSIC',
+    logo: { src: '/assets/images/houz-records-logo.webp', width: 269, height: 320 },
     title: 'Suddenly',
     youtubeId: 'GXx1dSkFE0I',
     releaseId: 'suddenly',

@@ -41,10 +41,20 @@ const formatDate = (iso) => {
   return date.toLocaleDateString('en-US', options);
 };
 
+const formatMonth = (iso) => {
+  const [y, m] = iso.split('-').map(Number);
+  return new Date(Date.UTC(y, m - 1, 1)).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+};
+
 const time = (iso) => html`<time datetime="${iso}">${formatDate(iso)}</time>`;
 
 const ext = (url, label, className = 'text-link', context = '') =>
-  html`<a class="${className}" href="${esc(url)}" target="_blank" rel="noopener">${esc(label)}${context ? html`<span class="visually-hidden">: ${esc(context)}</span>` : ''}<span class="visually-hidden"> (opens in a new tab)</span></a>`;
+  html`<a class="${className}" href="${esc(url)}" target="_blank" rel="noopener">${label}${context ? html`<span class="visually-hidden">: ${esc(context)}</span>` : ''}<span class="visually-hidden"> (opens in a new tab)</span></a>`;
+
+const arrow = html`<span aria-hidden="true"> ↗</span>`;
+
+// Escaped title with any trailing parenthetical set in italics: "Too Good <em>(Like Way)</em>".
+const releaseTitle = (title) => esc(title).replace(/\(([^)]+)\)$/, '<em>($1)</em>');
 
 const youtubeWatchUrl = (id) => `https://www.youtube.com/watch?v=${id}`;
 const youtubeThumb = (id) => `https://i.ytimg.com/vi/${id}/sddefault.jpg`;
@@ -63,6 +73,15 @@ const isUpcoming = (appearance) => appearance.date > today;
 
 const appearanceHeading = (a) => (a.title.includes(a.venue) ? a.title : `${a.title} — ${a.venue}`);
 
+// Display version of the heading with an italic "at": "Open Decks Night <em>at</em> Kingdom".
+const appearanceTitle = (a) =>
+  a.title.includes(a.venue)
+    ? esc(a.title).replace(' at ', ' <em>at</em> ')
+    : html`${esc(a.title)} <em>at</em> ${esc(a.venue)}`;
+
+// "Just In Your Mind" → "just - in - your - mind"
+const spokenName = site.pronunciation.toLowerCase().split(/\s+/).join(' - ');
+
 // ---------- components ----------
 
 const faviconPath = (await readFile(join(root, 'favicon.svg'), 'utf8')).match(/<path[^>]*\sd="([^"]+)"/)[1];
@@ -75,10 +94,11 @@ const navItems = [
   ['Contact', '/#contact'],
 ];
 
-const siteHeader = () => html`
+// The homepage hero carries the full wordmark, so its header shows the mask alone.
+const siteHeader = ({ wordmark = true } = {}) => html`
   <header class="site-header">
     <div class="container site-header__inner">
-      <a class="wordmark" href="/" aria-label="JSTNURMIND — home">${maskMark}<span>JSTNURMIND</span></a>
+      <a class="wordmark" href="/" aria-label="JSTNURMIND — home">${maskMark}${wordmark ? html`<span aria-hidden="true">JSTNURMIND</span>` : ''}</a>
       <div class="site-header__actions">
       <nav class="site-nav" aria-label="Primary">
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
@@ -96,69 +116,93 @@ const siteHeader = () => html`
     </div>
   </header>`;
 
-const sectionHeader = ({ id, eyebrow, title, intro, headingTag = 'h2' }) => html`
-  <div class="section-header">
-    ${eyebrow ? html`<p class="eyebrow">${esc(eyebrow)}</p>` : ''}
-    <${headingTag} class="section-title"${id ? html` id="${id}-title"` : ''}>${esc(title)}</${headingTag}>
-    ${intro ? html`<p class="section-intro">${esc(intro)}</p>` : ''}
+// Section heading row: display title plus an optional "more" link on the right.
+const sectionHead = ({ id, title, more }) => html`
+  <div class="section-head">
+    <h2 class="section-title" id="${id}-title">${title}</h2>
+    ${more ? html`<a class="more-link" href="${more.href}">${more.label} <span aria-hidden="true">→</span></a>` : ''}
   </div>`;
 
 const hero = () => html`
   <section class="hero" aria-labelledby="hero-title">
     <div class="container hero__inner">
+      <h1 class="hero__title" id="hero-title">JSTNURMIND</h1>
+      <figure class="hero__media">
+        <img src="${site.portrait.src}" width="${site.portrait.width}" height="${site.portrait.height}"
+          alt="${esc(site.portrait.alt)}" fetchpriority="high" decoding="async">
+      </figure>
       <div class="hero__text">
-        <p class="eyebrow">New York roots / Austin, TX</p>
-        <h1 class="hero__title" id="hero-title">JSTNURMIND</h1>
-        <p class="hero__pronounce">Pronounced “${esc(site.pronunciation)}”</p>
+        <p class="pronunciation"><span class="pronunciation__label">Pronunciation</span> <span class="pronunciation__value">${esc(spokenName)}</span></p>
         <p class="hero__lede">${esc(site.description)}</p>
         <div class="hero__actions">
-          <a class="button button--primary" href="#music">Listen to the music</a>
+          ${ext(listenLinks[0].url, 'Listen on Spotify', 'button button--primary')}
+          <a class="button button--outline hero__secondary" href="#music">Selected music <span aria-hidden="true">↓</span></a>
         </div>
       </div>
-      <figure class="hero__media">
-        <img src="${site.heroImage.src}" width="${site.heroImage.width}" height="${site.heroImage.height}"
-          alt="${esc(site.heroImage.alt)}" fetchpriority="high" decoding="async">
-      </figure>
     </div>
   </section>`;
 
-const labelStrip = (...parts) => html`<div class="label-strip">${parts}</div>`;
+// Decorative and duplicated for a seamless loop, so hidden from assistive tech; the genres are in the page metadata.
+// The track slides by exactly one run, so each run must be wider than the viewport or a gap opens at the end of
+// every cycle. Three passes of the genres (~3300px at desktop size) covers screens up to that width.
+const genreBanner = () => {
+  const passes = Array.from({ length: 3 }, () => site.bannerGenres).flat();
+  const run = html`<span class="marquee__run">${passes.map((g) => html`${esc(g)} <span class="marquee__sep">×</span> `)}</span>`;
+  return html`
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">${run}${run}</div>
+  </div>`;
+};
 
-// Featured cards get a Spotify button plus every verified platform; archive cards stay compact.
-const releaseCard = (release, { headingTag = 'h3', compact = false, lead = false } = {}) => {
+// variant: 'lead' and 'row' on the homepage, 'grid' on /music/.
+const releaseCard = (release, { variant = 'grid', headingTag = 'h3' } = {}) => {
   const primaryUrl = release.spotifyUrl || release.smartLinkUrl;
-  const primaryLabel = release.spotifyUrl ? 'Listen on Spotify' : 'Listen';
-  const primaryDestination = release.spotifyUrl ? 'Spotify' : 'streaming platforms';
-  const extras = compact
-    ? [
-        ...(release.spotifyUrl ? [ext(release.spotifyUrl, 'Spotify', 'text-link text-link--primary', release.title)] : []),
-        ...(release.smartLinkUrl ? [ext(release.smartLinkUrl, 'Other platforms', 'text-link', release.title)] : []),
-      ]
-    : platformFields.filter(([key]) => release[key]).map(([key, label]) => ext(release[key], label, 'text-link', release.title));
-  const classes = ['release-card', compact && 'release-card--compact', lead && 'release-card--lead'].filter(Boolean).join(' ');
+  const newTabNote = release.spotifyUrl ? ' (opens Spotify in a new tab)' : ' (opens in a new tab)';
+  const links = [
+    ...(release.spotifyUrl ? [ext(release.spotifyUrl, html`Spotify${arrow}`, 'release__primary', release.title)] : []),
+    ...(variant === 'grid'
+      ? release.smartLinkUrl
+        ? [ext(release.smartLinkUrl, 'Other platforms', '', release.title)]
+        : []
+      : platformFields.filter(([key]) => release[key]).map(([key, label]) => ext(release[key], label, '', release.title))),
+  ];
 
   return html`
-    <article class="${classes}">
-      <a class="release-card__art" href="${esc(primaryUrl)}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
-        <img src="${release.artwork}" width="800" height="800" alt="${esc(release.title)} cover artwork" ${lead ? '' : 'loading="lazy"'} decoding="async">
+    <article class="release release--${variant}">
+      <a class="release__art" href="${esc(primaryUrl)}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+        <img src="${release.artwork}" width="800" height="800" alt="" ${variant === 'lead' ? '' : 'loading="lazy"'} decoding="async">
       </a>
-      <div class="release-card__body">
-        <${headingTag} class="release-card__title"><a href="${esc(primaryUrl)}" target="_blank" rel="noopener">${esc(release.title)}<span class="visually-hidden"> — listen on ${primaryDestination} (opens in a new tab)</span></a></${headingTag}>
-        ${compact
-          ? ''
-          : html`<div class="release-card__actions">${ext(primaryUrl, primaryLabel, 'button button--small', release.title)}</div>`}
-        ${release.releaseDate || extras.length
-          ? labelStrip(
-              release.releaseDate ? html`<p class="meta">${time(release.releaseDate)}</p>` : '',
-              extras.length ? html`<ul class="link-list">${extras.map((l) => html`<li>${l}</li>`)}</ul>` : '',
-            )
-          : ''}
+      <div class="release__body">
+        ${release.releaseDate ? html`<p class="release__date">${time(release.releaseDate)}</p>` : ''}
+        <${headingTag} class="release__title"><a href="${esc(primaryUrl)}" target="_blank" rel="noopener">${releaseTitle(release.title)}<span class="visually-hidden">${newTabNote}</span></a></${headingTag}>
+        ${links.length ? html`<ul class="release__links">${links.map((l) => html`<li>${l}</li>`)}</ul>` : ''}
       </div>
     </article>`;
 };
 
+// One row of a listing: date or label, display title, optional trailing link.
+const listRow = ({ label, title, link = '', headingTag = 'h3' }) => html`
+  <li class="list-row">
+    <p class="list-row__label">${label}</p>
+    <${headingTag} class="list-row__title">${title}</${headingTag}>
+    <div class="list-row__link">${link}</div>
+  </li>`;
+
+// Label logo (linking to the channel), then the featured track and a link to the feature video.
+const featureCard = (f) => html`
+  <li class="feature">
+    <a class="feature__logo" href="${esc(f.channelUrl)}" target="_blank" rel="noopener">
+      ${f.logo
+        ? html`<img class="${f.logo.mono ? 'feature__logo-img feature__logo-img--mono' : 'feature__logo-img'}" src="${f.logo.src}" width="${f.logo.width}" height="${f.logo.height}" alt="${esc(f.channel)}" loading="lazy" decoding="async">`
+        : html`<span class="feature__logo-text">${esc(f.channel)}</span>`}
+      <span class="visually-hidden"> on YouTube (opens in a new tab)</span>
+    </a>
+    <h4 class="feature__title">${releaseTitle(f.title)}</h4>
+    <p class="feature__link">${ext(youtubeWatchUrl(f.youtubeId), html`Watch the feature${arrow}`, '', `${f.title} on ${f.channel}`)}</p>
+  </li>`;
+
 const selectedReleases = () => {
-  const selected = featuredReleaseIds.map((id) => {
+  const [lead, ...rest] = featuredReleaseIds.map((id) => {
     const release = releaseById[id];
     if (!release) throw new Error(`featuredReleaseIds references unknown release "${id}"`);
     return release;
@@ -166,142 +210,81 @@ const selectedReleases = () => {
   return html`
   <section class="section" id="music" aria-labelledby="music-title">
     <div class="container">
-      ${sectionHeader({ id: 'music', eyebrow: 'Music', title: 'Selected Music', intro: 'Explore different sides of the JSTNURMIND sound.' })}
-      <div class="release-grid release-grid--featured">
-        ${selected.map((r, i) => releaseCard(r, { lead: i === 0 }))}
+      ${sectionHead({ id: 'music', title: 'Selected <em>music</em>', more: { href: '/music/', label: `All ${releases.length} releases` } })}
+      <div class="featured-releases">
+        ${releaseCard(lead, { variant: 'lead' })}
+        <div class="featured-releases__side">${rest.map((r) => releaseCard(r, { variant: 'row' }))}</div>
       </div>
-      <p class="section-more"><a class="text-link text-link--strong" href="/music/">All releases <span aria-hidden="true">→</span></a></p>
+      ${features.length
+        ? html`
+      <div class="subsection">
+        <h3 class="subsection-label">Featured on</h3>
+        <ul class="features">${features.map(featureCard)}</ul>
+      </div>`
+        : ''}
     </div>
   </section>`;
 };
 
-const videoEmbed = ({ youtubeId, title, eager = false }) => html`
-  <div class="video" data-youtube-id="${esc(youtubeId)}" data-title="${esc(title)}">
-    <a class="video__trigger" href="${youtubeWatchUrl(youtubeId)}" target="_blank" rel="noopener">
-      <img src="${youtubeThumb(youtubeId)}" width="640" height="480" alt="" ${eager ? '' : 'loading="lazy"'} decoding="async"
-        onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${esc(youtubeId)}/hqdefault.jpg'">
-      <span class="video__play" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
-      <span class="visually-hidden">Play “${esc(title)}”</span>
-    </a>
-  </div>`;
-
-const featureCard = (feature) => {
-  const release = feature.releaseId ? releaseById[feature.releaseId] : null;
-  const fullTitle = `JSTNURMIND — ${feature.title}`;
-  return html`
-    <article class="media-card">
-      ${videoEmbed({ youtubeId: feature.youtubeId, title: `${fullTitle} (${feature.channel})` })}
-      <div class="media-card__body">
-        <p class="eyebrow eyebrow--accent">${esc(feature.channel)}</p>
-        <h3 class="media-card__title">${esc(feature.title)}</h3>
-        ${labelStrip(
-          html`<p class="meta">JSTNURMIND · Featured by ${ext(feature.channelUrl, feature.channel, 'text-link')}</p>`,
-          html`<ul class="link-list">
-          <li>${ext(youtubeWatchUrl(feature.youtubeId), 'Watch feature', 'text-link', feature.title)}</li>
-          ${release?.spotifyUrl
-            ? html`<li>${ext(
-                release.spotifyUrl,
-                release.title === feature.title ? 'Listen on Spotify' : `From ${release.title} on Spotify`,
-                'text-link',
-                feature.title,
-              )}</li>`
-            : ''}
-        </ul>`,
-        )}
-      </div>
-    </article>`;
-};
-
-const featuredOn = () => html`
-  <section class="section" id="featured" aria-labelledby="featured-title">
-    <div class="container">
-      ${sectionHeader({ id: 'featured', eyebrow: 'Selected features', title: 'Featured On' })}
-      <div class="media-grid media-grid--pair">
-        ${features.map(featureCard)}
-      </div>
-    </div>
-  </section>`;
-
-const residencyCard = (residency, { headingTag = 'h4' } = {}) => {
-  const latest = residency.episodes[0];
-  return html`
-    <article class="residency-card">
-      <a class="residency-card__thumb" href="${esc(residency.playlistUrl)}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
-        <img src="${youtubeThumb(latest.youtubeId)}" width="640" height="480" alt="" loading="lazy" decoding="async"
-          onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${esc(latest.youtubeId)}/hqdefault.jpg'">
-      </a>
-      <div class="residency-card__body">
-        <p class="eyebrow">${esc(residency.station)} · ${esc(residency.season)}</p>
-        <${headingTag} class="media-card__title">${esc(residency.name)}</${headingTag}>
-        ${labelStrip(
-          html`<p class="meta">${esc(residency.period)} · ${residency.episodes.length} monthly episodes</p>`,
-          html`<ul class="link-list">
-          <li>${ext(residency.playlistUrl, 'Watch the full season', 'text-link', residency.name)}</li>
-          <li>${ext(youtubeWatchUrl(latest.youtubeId), `Latest episode (${formatDate(latest.date)})`)}</li>
-        </ul>`,
-        )}
-      </div>
-    </article>`;
-};
-
-const appearanceCard = (a, { headingTag = 'h4' } = {}) => {
+const appearanceRow = (a, { headingTag = 'h3' } = {}) => {
   const heading = appearanceHeading(a);
-  return html`
-    <article class="media-card media-card--compact">
-      ${a.youtubeId
-        ? videoEmbed({ youtubeId: a.youtubeId, title: `JSTNURMIND — ${heading}, ${a.city}` })
-        : a.poster
-          ? html`<div class="poster"><img src="${a.poster.src}" width="${a.poster.width}" height="${a.poster.height}" alt="${esc(a.poster.alt)}" loading="lazy" decoding="async"></div>`
-          : ''}
-      <div class="media-card__body">
-        <p class="eyebrow">${isUpcoming(a) ? 'Upcoming · ' : ''}${esc(a.city)}</p>
-        <${headingTag} class="media-card__title">${esc(heading)}</${headingTag}>
-        ${labelStrip(
-          html`<p class="meta">${time(a.date)}</p>`,
-          a.youtubeId ? html`<ul class="link-list"><li>${ext(youtubeWatchUrl(a.youtubeId), 'Watch on YouTube', 'text-link', heading)}</li></ul>` : '',
-          a.ticketUrl ? html`<ul class="link-list"><li>${ext(a.ticketUrl, 'Tickets')}</li></ul>` : '',
-        )}
-      </div>
-    </article>`;
+  const link = a.youtubeId
+    ? ext(youtubeWatchUrl(a.youtubeId), html`Watch${arrow}`, '', heading)
+    : a.ticketUrl
+      ? ext(a.ticketUrl, html`Tickets${arrow}`, '', heading)
+      : '';
+  return listRow({
+    label: html`${isUpcoming(a) ? 'Upcoming · ' : ''}${time(a.date)}`,
+    title: appearanceTitle(a),
+    link,
+    headingTag,
+  });
 };
+
+const residencyRow = (r) =>
+  listRow({
+    label: `${r.episodes[0].date.slice(0, 4)} · ${esc(r.season.replace('Season ', 'S'))}`,
+    title: html`${esc(r.name)} <em>— ${esc(r.station.replace(/ Radio$/, ''))} residency</em>`,
+    link: ext(r.playlistUrl, html`Season${arrow}`, '', `${r.name}, ${r.station} ${r.season}`),
+  });
 
 const liveSection = () => {
   const upcoming = appearances.filter(isUpcoming).reverse();
-  const featuredSets = appearances.filter((a) => a.featured && !isUpcoming(a));
+  const recent = appearances.filter((a) => !isUpcoming(a)).slice(0, 4);
+  const posterSet = appearances.find((a) => a.poster);
   return html`
-  <section class="section" id="live" aria-labelledby="live-title">
+  <section class="section section--ruled" id="live" aria-labelledby="live-title">
     <div class="container">
-      ${sectionHeader({ id: 'live', eyebrow: 'Live', title: 'Live & On Air' })}
-      ${upcoming.length
-        ? html`
-      <div class="subsection">
-        <h3 class="subsection-title">Upcoming</h3>
-        <div class="media-grid media-grid--three">${upcoming.map((a) => appearanceCard(a))}</div>
-      </div>`
-        : ''}
-      <div class="subsection">
-        <h3 class="subsection-title">Radio residencies / Shared Frequencies</h3>
-        <div class="media-grid media-grid--pair">${residencies.map((r) => residencyCard(r))}</div>
+      ${sectionHead({ id: 'live', title: 'Live <em>&amp;</em> on air', more: { href: '/live/', label: 'Full archive' } })}
+      <div class="live">
+        <ul class="list live__list">
+          ${upcoming.map((a) => appearanceRow(a))}
+          ${recent.map((a) => appearanceRow(a))}
+          ${residencies.map(residencyRow)}
+        </ul>
+        ${posterSet
+          ? html`
+        <figure class="live__poster">
+          <img src="${posterSet.poster.src}" width="${posterSet.poster.width}" height="${posterSet.poster.height}" alt="${esc(posterSet.poster.alt)}" loading="lazy" decoding="async">
+          <figcaption>${esc(posterSet.venue)} — ${formatMonth(posterSet.date)}</figcaption>
+        </figure>`
+          : ''}
       </div>
-      <div class="subsection">
-        <h3 class="subsection-title">Selected live sets</h3>
-        <div class="media-grid media-grid--three">${featuredSets.map((a) => appearanceCard(a))}</div>
-      </div>
-      <p class="section-more"><a class="text-link text-link--strong" href="/live/">Full live &amp; radio archive <span aria-hidden="true">→</span></a></p>
     </div>
   </section>`;
 };
 
 const about = () => html`
-  <section class="section about-section" id="about" aria-labelledby="about-title">
-    <div class="container about">
+  <section class="section section--ruled about" id="about" aria-labelledby="about-title">
+    <div class="container about__inner">
       <figure class="about__media">
-        <img src="${site.portrait.src}" width="${site.portrait.width}" height="${site.portrait.height}"
-          alt="${esc(site.portrait.alt)}" loading="lazy" decoding="async">
+        <img src="${site.maskImage.src}" width="${site.maskImage.width}" height="${site.maskImage.height}"
+          alt="${esc(site.maskImage.alt)}" loading="lazy" decoding="async">
       </figure>
       <div class="about__text">
-        ${sectionHeader({ id: 'about', eyebrow: 'About', title: 'About JSTNURMIND' })}
-        ${site.bio.map((p) => html`<p class="body-large">${esc(p)}</p>`)}
+        <h2 class="subsection-label" id="about-title">About<span class="visually-hidden"> JSTNURMIND</span></h2>
+        <p class="about__quote">${esc(site.pullQuote)}</p>
+        <p class="body-large">${esc(site.bio[0])}</p>
         <dl class="facts">
           <div><dt>From</dt><dd>New York City</dd></div>
           <div><dt>Based in</dt><dd>${esc(site.location.city)}, Texas</dd></div>
@@ -312,10 +295,11 @@ const about = () => html`
   </section>`;
 
 const contact = () => html`
-  <section class="section" id="contact" aria-labelledby="contact-title">
+  <section class="section section--ruled" id="contact" aria-labelledby="contact-title">
     <div class="container contact">
       <div class="contact__intro">
-        ${sectionHeader({ id: 'contact', eyebrow: 'Contact', title: 'Get in Touch', intro: 'For bookings, collaborations, features, and other inquiries.' })}
+        <h2 class="section-title" id="contact-title">Contact</h2>
+        <p class="body-large">For bookings, collaborations, features, and other inquiries.</p>
       </div>
       <form class="contact-form" action="${site.contact.formspreeEndpoint}" method="POST" data-contact-form>
         <input type="hidden" name="_subject" value="New inquiry from jstnurmind.com">
@@ -353,29 +337,18 @@ const contact = () => html`
 const siteFooter = () => html`
   <footer class="site-footer">
     <div class="container site-footer__inner">
-      <div class="site-footer__brand">
-        <a class="wordmark wordmark--large" href="/">${maskMark}<span>JSTNURMIND</span></a>
-        <p class="site-footer__tagline">Producer and DJ. New York roots, based in Austin, TX.</p>
-      </div>
-      <nav class="site-footer__col" aria-label="Listen">
-        <h2 class="footer-heading">Listen</h2>
-        <ul>${listenLinks.map((l) => html`<li>${ext(l.url, l.label, 'footer-link')}</li>`)}</ul>
+      <a class="site-footer__wordmark" href="/">JSTNURMIND</a>
+      <nav aria-label="Listen and follow">
+        <ul class="footer-links">${[...listenLinks, ...followLinks].map((l) => html`<li>${ext(l.url, esc(l.label), 'footer-link')}</li>`)}</ul>
       </nav>
-      <nav class="site-footer__col" aria-label="Follow">
-        <h2 class="footer-heading">Follow</h2>
-        <ul>${followLinks.map((l) => html`<li>${ext(l.url, l.label, 'footer-link')}</li>`)}</ul>
-      </nav>
-      <nav class="site-footer__col" aria-label="Site">
-        <h2 class="footer-heading">Site</h2>
-        <ul>
+      <nav aria-label="Site">
+        <ul class="footer-links footer-links--site">
           <li><a class="footer-link" href="/music/">All releases</a></li>
           <li><a class="footer-link" href="/live/">Live &amp; radio archive</a></li>
           <li><a class="footer-link" href="/#contact">Contact</a></li>
         </ul>
       </nav>
-    </div>
-    <div class="container site-footer__legal">
-      <p>© ${year} JSTNURMIND. All rights reserved.</p>
+      <p class="site-footer__legal">© ${year} JSTNURMIND · New York roots, based in Austin, TX</p>
     </div>
   </footer>`;
 
@@ -437,7 +410,7 @@ const jsonLd = (graph) =>
 
 // ---------- layout ----------
 
-const layout = ({ path, title, description, body, graph, preloadImage }) => {
+const layout = ({ path, title, description, body, graph, preloadImage, headerWordmark = true }) => {
   const url = site.url + path;
   return html`<!DOCTYPE html>
 <!-- Generated by scripts/build.mjs from data/content.mjs. Edit those files, not this one. -->
@@ -448,6 +421,7 @@ const layout = ({ path, title, description, body, graph, preloadImage }) => {
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(description)}">
+  <meta name="theme-color" content="#101010" media="(max-width: 47.99rem)">
   <meta name="theme-color" content="#df0000">
   <link rel="canonical" href="${url}">
   <meta property="og:type" content="website">
@@ -481,7 +455,7 @@ const layout = ({ path, title, description, body, graph, preloadImage }) => {
 
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  ${siteHeader()}
+  ${siteHeader({ wordmark: headerWordmark })}
   <main id="main">
     ${body}
   </main>
@@ -500,7 +474,8 @@ const homePage = () =>
     title: 'JSTNURMIND | Electronic Music Producer & DJ | Austin, TX',
     description:
       'Discover JSTNURMIND, a masked electronic music producer and DJ from New York City, based in Austin, Texas. Explore music, live sets, and releases.',
-    preloadImage: site.heroImage.src,
+    preloadImage: site.portrait.src,
+    headerWordmark: false,
     graph: [
       { '@type': 'WebSite', '@id': `${site.url}/#website`, url: `${site.url}/`, name: site.name },
       artistNode(),
@@ -508,17 +483,55 @@ const homePage = () =>
       ...eventNodes(),
       ...residencyNodes(),
     ],
-    body: [hero(), selectedReleases(), featuredOn(), liveSection(), about(), contact()].join(''),
+    body: [hero(), genreBanner(), selectedReleases(), liveSection(), about(), contact()].join(''),
   });
 
-const pageIntro = ({ eyebrow, title, intro }) => html`
+const pageIntro = ({ title, intro }) => html`
   <section class="page-intro">
     <div class="container">
-      <p class="eyebrow">${esc(eyebrow)}</p>
-      <h1 class="page-title">${esc(title)}</h1>
-      ${intro ? html`<p class="section-intro">${esc(intro)}</p>` : ''}
+      <h1 class="section-title">${title}</h1>
+      ${intro ? html`<p class="body-large">${esc(intro)}</p>` : ''}
     </div>
   </section>`;
+
+const videoEmbed = ({ youtubeId, title }) => html`
+  <div class="video" data-youtube-id="${esc(youtubeId)}" data-title="${esc(title)}">
+    <a class="video__trigger" href="${youtubeWatchUrl(youtubeId)}" target="_blank" rel="noopener">
+      <img src="${youtubeThumb(youtubeId)}" width="640" height="480" alt="" loading="lazy" decoding="async"
+        onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${esc(youtubeId)}/hqdefault.jpg'">
+      <span class="video__play" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
+      <span class="visually-hidden">Play “${esc(title)}”</span>
+    </a>
+  </div>`;
+
+// Archive card on /live/: video (or poster), date, title, link.
+const mediaCard = ({ media, label, title, link = '', headingTag = 'h3' }) => html`
+  <article class="media-card">
+    ${media}
+    <div class="media-card__body">
+      <p class="media-card__label">${label}</p>
+      <${headingTag} class="media-card__title">${title}</${headingTag}>
+      ${link ? html`<p class="media-card__link">${link}</p>` : ''}
+    </div>
+  </article>`;
+
+const appearanceCard = (a) => {
+  const heading = appearanceHeading(a);
+  return mediaCard({
+    media: a.youtubeId
+      ? videoEmbed({ youtubeId: a.youtubeId, title: `JSTNURMIND — ${heading}, ${a.city}` })
+      : a.poster
+        ? html`<div class="poster"><img src="${a.poster.src}" width="${a.poster.width}" height="${a.poster.height}" alt="${esc(a.poster.alt)}" loading="lazy" decoding="async"></div>`
+        : '',
+    label: html`${isUpcoming(a) ? 'Upcoming · ' : ''}${time(a.date)} · ${esc(a.city)}`,
+    title: appearanceTitle(a),
+    link: a.youtubeId
+      ? ext(youtubeWatchUrl(a.youtubeId), html`Watch on YouTube${arrow}`, '', heading)
+      : a.ticketUrl
+        ? ext(a.ticketUrl, html`Tickets${arrow}`, '', heading)
+        : '',
+  });
+};
 
 const musicPage = () =>
   layout({
@@ -527,11 +540,11 @@ const musicPage = () =>
     description: `Every JSTNURMIND release, from ${releases.at(-1).title} to ${releases[0].title}. Stream on Spotify and other platforms.`,
     graph: [artistNode(), ...albumNodes()],
     body: html`
-    ${pageIntro({ eyebrow: 'Music', title: 'Discography', intro: 'Every JSTNURMIND release, newest first.' })}
+    ${pageIntro({ title: 'Discography', intro: 'Every JSTNURMIND release, newest first.' })}
     <section class="section section--tight" aria-label="All releases">
       <div class="container">
-        <div class="release-grid release-grid--archive">
-          ${releases.map((r) => releaseCard(r, { headingTag: 'h2', compact: true }))}
+        <div class="release-grid">
+          ${releases.map((r) => releaseCard(r, { variant: 'grid', headingTag: 'h2' }))}
         </div>
       </div>
     </section>`,
@@ -547,43 +560,41 @@ const livePage = () => {
       'Live DJ sets and radio appearances by JSTNURMIND in Austin, Texas, including the Shared Frequencies Radio residencies Otherworld and Real Magic.',
     graph: [artistNode(), ...eventNodes(), ...residencyNodes()],
     body: html`
-    ${pageIntro({ eyebrow: 'Live', title: 'Live & On Air', intro: 'Live sets and radio appearances, newest first.' })}
+    ${pageIntro({ title: 'Live <em>&amp;</em> on air', intro: 'Live sets and radio appearances, newest first.' })}
     ${upcoming.length
       ? html`
     <section class="section section--tight" aria-labelledby="upcoming-title">
       <div class="container">
-        <h2 class="subsection-title" id="upcoming-title">Upcoming</h2>
-        <div class="media-grid media-grid--three">${upcoming.map((a) => appearanceCard(a, { headingTag: 'h3' }))}</div>
+        <h2 class="archive-title" id="upcoming-title">Upcoming</h2>
+        <ul class="list">${upcoming.map((a) => appearanceRow(a))}</ul>
       </div>
     </section>`
       : ''}
     <section class="section section--tight" aria-labelledby="sets-title">
       <div class="container">
-        <h2 class="subsection-title" id="sets-title">Live sets</h2>
-        <div class="media-grid media-grid--three">${past.map((a) => appearanceCard(a, { headingTag: 'h3' }))}</div>
+        <h2 class="archive-title" id="sets-title">Live sets</h2>
+        <div class="media-grid">${past.map(appearanceCard)}</div>
       </div>
     </section>
     ${residencies.map(
       (r) => html`
-    <section class="section section--tight" aria-labelledby="${r.id}-title">
+    <section class="section section--tight section--ruled" aria-labelledby="${r.id}-title">
       <div class="container">
         <div class="archive-header">
           <div>
-            <p class="eyebrow">${esc(r.station)} · ${esc(r.season)} · ${esc(r.period)}</p>
-            <h2 class="subsection-title" id="${r.id}-title">${esc(r.name)}</h2>
+            <p class="archive-header__label">${esc(r.station)} · ${esc(r.season)} · ${esc(r.period)}</p>
+            <h2 class="archive-title" id="${r.id}-title">${esc(r.name)}</h2>
           </div>
-          ${ext(r.playlistUrl, 'Full season playlist', 'text-link text-link--strong')}
+          ${ext(r.playlistUrl, html`Full season playlist${arrow}`, 'more-link')}
         </div>
-        <div class="media-grid media-grid--three">
-          ${r.episodes.map(
-            (ep) => html`
-          <article class="media-card media-card--compact">
-            ${videoEmbed({ youtubeId: ep.youtubeId, title: `JSTNURMIND — ${r.name}, ${r.station} ${r.season} (${formatDate(ep.date)})` })}
-            <div class="media-card__body">
-              <h3 class="media-card__title">${esc(r.name)} — ${formatDate(ep.date)}</h3>
-              ${labelStrip(html`<ul class="link-list"><li>${ext(youtubeWatchUrl(ep.youtubeId), 'Watch on YouTube', 'text-link', `${r.name}, ${formatDate(ep.date)}`)}</li></ul>`)}
-            </div>
-          </article>`,
+        <div class="media-grid">
+          ${r.episodes.map((ep) =>
+            mediaCard({
+              media: videoEmbed({ youtubeId: ep.youtubeId, title: `JSTNURMIND — ${r.name}, ${r.station} ${r.season} (${formatDate(ep.date)})` }),
+              label: esc(r.season),
+              title: html`${esc(r.name)} <em>— ${formatDate(ep.date)}</em>`,
+              link: ext(youtubeWatchUrl(ep.youtubeId), html`Watch on YouTube${arrow}`, '', `${r.name}, ${formatDate(ep.date)}`),
+            }),
           )}
         </div>
       </div>
@@ -598,8 +609,8 @@ const sitemap = () => `<?xml version="1.0" encoding="UTF-8"?>
   <url>
     <loc>${site.url}/</loc>
     <lastmod>${today}</lastmod>
-    <image:image><image:loc>${site.url}${site.heroImage.src}</image:loc></image:image>
     <image:image><image:loc>${site.url}${site.portrait.src}</image:loc></image:image>
+    <image:image><image:loc>${site.url}${site.maskImage.src}</image:loc></image:image>
   </url>
   <url>
     <loc>${site.url}/music/</loc>

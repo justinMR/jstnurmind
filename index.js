@@ -5,7 +5,8 @@ if (themeToggle) {
   const root = document.documentElement;
   const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
   const currentTheme = () => root.dataset.theme || (systemDark.matches ? 'dark' : 'light');
-  const themeColor = document.querySelector('meta[name="theme-color"]');
+  // The media-scoped tag (ink, for the mobile header) stays fixed; only the default follows the theme.
+  const themeColor = document.querySelector('meta[name="theme-color"]:not([media])');
   const sync = () => {
     const dark = currentTheme() === 'dark';
     themeToggle.setAttribute('aria-pressed', String(dark));

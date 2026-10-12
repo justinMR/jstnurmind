@@ -3,13 +3,13 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://jstnurmind.com/</loc>
-    <lastmod>2026-10-11</lastmod>
-    <image:image><image:loc>https://jstnurmind.com/assets/images/jstnurmind-red-mask-music-producer-austin.webp</image:loc></image:image>
+    <lastmod>2026-10-12</lastmod>
     <image:image><image:loc>https://jstnurmind.com/assets/images/jstnurmind-red-mask-portrait.jpeg</image:loc></image:image>
+    <image:image><image:loc>https://jstnurmind.com/assets/images/jstnurmind-red-mask-cutout.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://jstnurmind.com/music/</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <image:image><image:loc>https://jstnurmind.com/assets/images/raverr-pack-sounds-jstnurmind-album-cover.webp</image:loc></image:image>
     <image:image><image:loc>https://jstnurmind.com/assets/images/raverr-pack-2-jstnurmind-album-cover.webp</image:loc></image:image>
     <image:image><image:loc>https://jstnurmind.com/assets/images/raverr-pack-1-jstnurmind-album-cover.webp</image:loc></image:image>
@@ -28,6 +28,6 @@
   </url>
   <url>
     <loc>https://jstnurmind.com/live/</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-12</lastmod>
   </url>
 </urlset>
